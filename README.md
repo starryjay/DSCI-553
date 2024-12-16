@@ -25,6 +25,7 @@ Technologies used:
    * 80th percentile
 
 ## Competition Project
+* Goal: Given a user-business pair on Yelp, accurately predict the rating given to the business by the user.
 * Weighted hybrid recommender system with model-based and item-based collaborative filtering components
 * Training dataset of 450,000 points
 * Validation dataset of 142,044 points
