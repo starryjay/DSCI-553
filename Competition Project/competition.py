@@ -8,7 +8,7 @@ import math
 import numpy as np
 import pyspark
 import xgboost as xgb
-from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.preprocessing import RobustScaler
 
 warnings.filterwarnings("ignore")
 
@@ -26,20 +26,20 @@ Boolean attributes that are not present are given a value of -1.
 The gradient-boosted tree model is trained on a subset of the training set, validated on a smaller subset of the training set,
 and then used to predict the ratings for the actual validation set.
 
-The final predictions are then averaged to get the hybrid predictions. Hyperparameter tuning is being conducted to lower RMSE below 0.9800.
+The final predictions are then averaged to get the hybrid predictions. I unfortunately could not clear the 0.9800 RMSE threshold but achieved a final RMSE of 0.9846.
 
 Error Distribution:
->=0 and <=1: 101532
->1 and <=2: 33300
->2 and <=3: 6314
->3 and <=4: 884
->4 and <=5: 14
+>=0 and <=1: 101530
+>1 and <=2: 33427
+>2 and <=3: 6327
+>3 and <=4: 760
+>4 and <=5: 0
 
 RMSE:
-0.9814893893758085
+0.9847704587992987
 
 Execution Time:
-176s
+96s
 
 """
 
@@ -266,18 +266,16 @@ def xgb_model_based():
 
     param = {
         'max_depth': 0,
-        'eta': 0.02,
-        'min_child_weight': 10000,
-        'subsample': 0.8,
-        'lambda': 10,
-        'alpha': 0.27,
+        'eta': 0.01,
+        'min_child_weight': 700,
+        'subsample': 0.7,
+        'lambda': 1,
         'colsample_bytree': 0.5,
-        'gamma': 0.1,
+        'gamma': 1,
         'objective': 'reg:linear',
         'eval_metric': 'rmse',
         'n_estimators': 3000,
-        #'early_stopping_rounds': 25,
-        'random_state': 2020,
+        'early_stopping_rounds': 100,
     }
 
     print('fitting model')
@@ -302,17 +300,7 @@ def weighted_hybrid_recommender():
     header = model_output.first()
     model_output = model_output.filter(lambda row: row != header).sortByKey()
     matching = item_output.join(model_output)
-
-    weights = np.linspace(0, 1, 100)
-
-    rmse_vals = {}
-    hybrid_preds = matching.map(lambda row: (row[0][0], row[0][1], float(row[1][0]), float(row[1][1]))).collect()
-    for weight in weights:
-        preds_weighted = matching.map(lambda row: ((row[0][0], row[0][1]), (weight * float(row[1][0])) + ((1 - weight) * float(row[1][1]))))
-        rmse = calculate_rmse(preds_weighted, test_file)
-        rmse_vals[weight] = rmse
-    best_weight = min(rmse_vals, key=rmse_vals.get)
-    hybrid_preds = matching.map(lambda row: (row[0][0], row[0][1], (best_weight * float(row[1][0])) + ((1 - best_weight) * float(row[1][1])))).collect()
+    hybrid_preds = matching.map(lambda row: (row[0][0], row[0][1], (0.05 * float(row[1][0])) + ((1 - 0.05) * float(row[1][1])))).collect()
     with open(output_file, 'w') as f:
         f.write('user_id, business_id, prediction\n')
         for user, business, prediction in hybrid_preds:
@@ -321,8 +309,8 @@ def weighted_hybrid_recommender():
     error_dist = calculate_error_distribution(output_file, test_file)
     print(error_dist)
     print('RMSE (Weighted Hybrid):', rmse)
-    #os.remove('item_output.csv')
-    #os.remove('model_output.csv')    
+    os.remove('item_output.csv')
+    os.remove('model_output.csv')    
 
 
 
@@ -330,7 +318,7 @@ if __name__ == '__main__':
     start = time.time()
     item_start = time.time()
     print('\n\n\nItem-Based Recommender System:\n')
-    #item_based()
+    item_based()
     item_end = time.time()
     print('Item-Based Duration:', round(item_end - item_start), 'seconds')
     model_start = time.time()
