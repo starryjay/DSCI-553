@@ -3,6 +3,14 @@
 The purpose of this repository is to showcase skills I've gained over the course of this semester. 
 Please do not use the contents of this repository as your own work for the course.
 
+Technologies used: 
+* Python
+ * PySpark
+ * NumPy
+ * XGBoost
+ * Scikit-Learn
+ * GraphFrames
+
 ## Homework Scores
 * HW1 - 5/7
 * HW2 - 7/7
