@@ -1,7 +1,11 @@
 # DSCI 553 - Foundations and Applications of Data Mining - Fall 2024
 
-The purpose of this repository is to showcase skills I've gained over the course of this semester. 
-Please do not use the contents of this repository as your own work for the course.
+## Introduction
+
+The purpose of this repository is to showcase skills I have gained over the course of taking DSCI 553. 
+
+> [!WARNING]
+> Please do not copy the contents of this repository for your own coursework! You may look over my implementation and try to understand the logic, but please write your own code for submission.
 
 ### Technologies used: 
 * Python
@@ -23,11 +27,12 @@ Please do not use the contents of this repository as your own work for the cours
 
 ## Exam Score
 * Comprehensive Exam: 30.3/40 (75.75%)
-   * Class average: 64%
-   * 80th percentile
+
+> [!NOTE]
+> The class average on the comprehensive exam was a 64%. My score fell into the 80th percentile when compared to my peers' scores.
 
 ## Competition Project
-* Goal: Given a user-business pair on Yelp, accurately predict the rating given to the business by the user.
+* **Goal:** Given a user-business pair on Yelp, accurately predict the rating given to the business by the user.
     * Training dataset of 455,854 points
     * Validation dataset of 142,044 points
 * Weighted hybrid recommender system with model-based and item-based collaborative filtering components
@@ -43,8 +48,8 @@ Please do not use the contents of this repository as your own work for the cours
 | \>3 and <=4 | 760 | 0.54% |
 | \>4 and <=5 | 0 | 0.00% |
 
-* Future improvements:
-    * Including even more features from dataset: number of Yelp friends a user has, compliments on Yelp profile, etc.
-    * Upgrading existing packages (XGBoost, PySpark, Scikit-Learn) to take advantage of latest features
-        * Fitting XGBoost model with `reg:squarederror` loss function, learning rate scheduler, dynamic early stopping threshold
-        * Dynamically weighting hybrid recommender system or focusing on features to determine weights
+### Future improvements:
+* Including even more features from dataset: number of Yelp friends a user has, compliments on Yelp profile, etc.
+* Upgrading existing packages (XGBoost, PySpark, Scikit-Learn) to take advantage of latest features
+    * Fitting XGBoost model with `reg:squarederror` loss function, learning rate scheduler, dynamic early stopping threshold
+    * Dynamically weighting hybrid recommender system or focusing on features to determine weights
