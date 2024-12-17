@@ -32,11 +32,15 @@ Please do not use the contents of this repository as your own work for the cours
 * Final RMSE: 0.98477 stars
 * Execution time: 96 seconds
 * Error Distribution (stars):
-    * \>=0 and <=1: 101530
-    * \>1 and <=2: 33427
-    * \>2 and <=3: 6327
-    * \>3 and <=4: 760
-    * \>4 and <=5: 0
+
+| Error range (stars) | Number of observations | Percentage of validation set |
+| ------------ | ------------ | ---------- |
+| \>=0 and <=1 | 101,530 | 71.48% |
+| \>1 and <=2 | 33,427 | 23.53% |
+| \>2 and <=3 | 6,327 | 4.45% |
+| \>3 and <=4 | 760 | 0.54% |
+| \>4 and <=5 | 0 | 0.00% |
+
 * Future improvements:
     * Including even more features from dataset: number of Yelp friends a user has, compliments on Yelp profile, etc.
     * Upgrading existing packages (XGBoost, PySpark, Scikit-Learn) to take advantage of latest features
