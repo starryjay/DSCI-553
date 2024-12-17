@@ -202,21 +202,21 @@ def xgb_model_based():
     X_val = np.array(data_val.collect()).astype(float)
     X_val = rs.transform(X_val)
 
-    param = {
-        'max_depth': 0,
-        'eta': 0.02,
-        'min_child_weight': 500,
-        'subsample': 0.7,
-        'lambda': 1,
-        'colsample_bytree': 0.5,
-        'gamma': 1,
-        'objective': 'reg:linear',
-        'eval_metric': 'rmse',
-        'n_estimators': 3000,
-    }
+    #param = {
+    #    'max_depth': 0,
+    #    'eta': 0.02,
+    #    'min_child_weight': 500,
+    #    'subsample': 0.7,
+    #    'lambda': 1,
+    #    'colsample_bytree': 0.5,
+    #    'gamma': 1,
+    #    'objective': 'reg:linear',
+    #    'eval_metric': 'rmse',
+    #    'n_estimators': 3000,
+    #}
 
     print('fitting model')
-    gbt = xgb.XGBRegressor(**param)
+    gbt = xgb.XGBRegressor()#**param)
     gbt.fit(X_train, y_train, verbose=0)
     print('predicting')
     preds_test = gbt.predict(X_val)
@@ -228,7 +228,7 @@ def xgb_model_based():
 
 
 def weighted_hybrid_recommender():
-    item_output = sc.textFile(os.path.join('item_output.csv')).map(lambda row: row.split(',')).map(lambda row: ((row[0], row[1]), row[2]))
+    item_output = sc.textFile('item_output.csv').map(lambda row: row.split(',')).map(lambda row: ((row[0], row[1]), row[2]))
     header = item_output.first()
     item_output = item_output.filter(lambda row: row != header).sortByKey()
     model_output = sc.textFile('model_output.csv').map(lambda row: row.split(',')).map(lambda row: ((row[0], row[1]), row[2]))

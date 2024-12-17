@@ -128,22 +128,22 @@ def xgb_model_based():
     X_test = np.array(data_val.collect()).astype(float)
     X_test = rs.transform(X_test)
 
-    param = {
-        'max_depth': 0,
-        'eta': 0.02,
-        'min_child_weight': 500,
-        'subsample': 0.7,
-        'lambda': 1,
-        'colsample_bytree': 0.5,
-        'gamma': 1,
-        'objective': 'reg:linear',
-        'eval_metric': 'rmse',
-        'n_estimators': 3000,
-        'early_stopping_rounds': 100
-    }
+    #param = {
+    #    'max_depth': 0,
+    #    'eta': 0.02,
+    #    'min_child_weight': 500,
+    #    'subsample': 0.7,
+    #    'lambda': 1,
+    #    'colsample_bytree': 0.5,
+    #    'gamma': 1,
+    #    'objective': 'reg:linear',
+    #    'eval_metric': 'rmse',
+    #    'n_estimators': 3000,
+    #    'early_stopping_rounds': 100
+    #}
 
     print('fitting model')
-    gbt = xgb.XGBRegressor(**param)
+    gbt = xgb.XGBRegressor()#**param)
     gbt.fit(X_train, y_train, eval_set=[(X_train, y_train), (X_val, y_val)], verbose=10)
     print('predicting')
     preds_test = gbt.predict(X_test)

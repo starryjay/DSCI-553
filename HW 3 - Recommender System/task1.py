@@ -38,12 +38,16 @@ def generate_hash(num_hashes, prime):
 for i in range(num_hashes):
     hash_functions.append(generate_hash(num_hashes, prime))
 
+                                                # business_id,   smallest hash value for each hash function
 minhash_signatures = data_grouped.map(lambda row: (row[0], [min([hash_func(idx) for idx in row[1]]) for hash_func in hash_functions])) # (business_id, [sig1, sig2, ...])
 
 len_minhash_signatures = minhash_signatures.count()
+
+                                                # band number, signature for that band                                  business_id                      # group by band and signature to find candidate pairs of businesses
 bands = minhash_signatures.flatMap(lambda row: [((band, tuple(row[1][band * rows_per_band:(band + 1) * rows_per_band])), row[0]) for band in range(num_bands)]).groupByKey().mapValues(list)
 # ((band, signature), [business_id]) <-- group business ids by matching bands and signatures
 
+                            # make sure cands have at least 2 business_ids    # get all pairs of business_ids in each band             # (pair, number of bands)     # get only the pairs
 candidates = bands.filter(lambda row: len(row[1]) > 1).flatMap(lambda row: [(pair, 1) for pair in combinations(row[1], 2)]).reduceByKey(lambda b1, b2: b1 + b2).map(lambda x: x[0]) # lists of business_ids
 
 def jaccard(a, b):
@@ -51,6 +55,7 @@ def jaccard(a, b):
     b = set(b)
     return len(a.intersection(b)) / len(a.union(b))
 
+                                            # get pairs in lexicographical order and jaccard similarity of users per business pair  # filter pairs with jaccard similarity >= 0.5  # sort by business_id1 and business_id2
 final_pairs = candidates.map(lambda pair: (sorted(pair)[0], sorted(pair)[1], 
                                            jaccard(business_user_dict[pair[0]], business_user_dict[pair[1]]))).filter(lambda row: row[2] >= 0.5).sortBy(lambda row: [row[0], row[1]])
 # (business_id1, business_id2, similarity)
