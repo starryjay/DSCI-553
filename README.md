@@ -33,7 +33,7 @@ Please do not use the contents of this repository as your own work for the cours
 * Weighted hybrid recommender system with model-based and item-based collaborative filtering components
 * Final RMSE: 0.98477 stars
 * Execution time: 96 seconds
-* Error Distribution (stars):
+* Error distribution:
 
 | Error range (stars) | Number of observations | Percentage of validation set |
 | ------------ | ------------ | ---------- |
