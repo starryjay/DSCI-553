@@ -12,14 +12,14 @@ Please do not use the contents of this repository as your own work for the cours
     * GraphFrames
 
 ## Homework Scores
-| Homework | Score |
-| -------- | ----- |
-| HW1 | 5/7 |
-| HW2 | 7/7 |
-| HW3 | 7/7 |
-| HW4 | 7/7 |
-| HW5 | 7/7 |
-| HW6 | 7/7 |
+| Homework | Topic | Score |
+| -------- | ----- | ----- |
+| HW1 | MapReduce | 5/7 |
+| HW2 | Frequent Itemsets, SON Algorithm | 7/7 |
+| HW3 | Locality-Sensitive Hashing and Recommender Systems | 7/7 |
+| HW4 | Community Detection, Girvan-Newman Algorithm | 7/7 |
+| HW5 | Data Streams, Bloom Filter/Martin-Flajolet Algorithm | 7/7 |
+| HW6 | Clustering, Bradley-Fayyad-Reina (BFR) Algorithm | 7/7 |
 
 ## Exam Score
 * Comprehensive Exam: 30.3/40 (75.75%)
