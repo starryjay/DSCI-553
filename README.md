@@ -16,7 +16,7 @@ The purpose of this repository is to showcase skills I have gained over the cour
     * GraphFrames
 
 ## Homework Scores
-| Homework | Topic | Score |
+| Homework | Topic | Score | 
 | -------- | ----- | ----- |
 | HW1 | MapReduce | 5/7 |
 | HW2 | Frequent Itemsets, SON Algorithm | 7/7 |
@@ -24,6 +24,9 @@ The purpose of this repository is to showcase skills I have gained over the cour
 | HW4 | Community Detection, Girvan-Newman Algorithm | 7/7 |
 | HW5 | Data Streams, Bloom Filter/Martin-Flajolet Algorithm | 7/7 |
 | HW6 | Clustering, Bradley-Fayyad-Reina (BFR) Algorithm | 7/7 |
+
+> [!NOTE]
+> Late penalties reduced my scores for these homework assignments.
 
 ## Exam Score
 * Comprehensive Exam: 30.3/40 (75.75%)
